@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HW2 - AR</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        position: relative;
+      }
+      canvas {
+        display: block;
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        z-index: 9999;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        font-size: large;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Adventures in AR</h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module">
+      function main() {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 100);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const geometry = new THREE.SphereGeometry(2, 24, 12);
+        const material = new THREE.MeshPhongMaterial({
+          color: 0xff0000,
+          shininess: 120,
+          flatShading: true,
+        });
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        const light = new THREE.DirectionalLight(0xffffff, 1.2);
+        light.position.set(0.5, 0.5, 1);
+        scene.add(light);
+
+        camera.position.z = 5;
+
+        function animate() {
+          requestAnimationFrame(animate);
+          sphere.rotation.y += 0.02;
+          renderer.render(scene, camera);
+        }
+        animate();
+      }
+      main();
+    </script>
+    <footer>
+      <p>Bryce Kormylo&trade;</p>
+    </footer>
+  </body>
+</html>
